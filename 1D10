@@ -1,0 +1,215 @@
+# CircuitPlaygroundExpress_NeoPixel
+from random import *
+import time
+import board
+import neopixel
+from digitalio import DigitalInOut, Direction, Pull
+print('running')
+global rolled
+rolled = 0
+global diceType
+diceType = 3
+pixels = neopixel.NeoPixel(board.NEOPIXEL, 10, brightness=.10)
+pixels.fill((200, 55, 0))
+pixels.show()
+time.sleep(1)
+pixels.fill((0, 0, 0))
+time.sleep(1)
+pixels.show()
+led = DigitalInOut(board.D13)
+led.direction = Direction.OUTPUT
+
+button = DigitalInOut(board.BUTTON_A)
+button.direction = Direction.INPUT
+button.pull = Pull.DOWN
+button2 = DigitalInOut(board.BUTTON_B)
+button2.direction = Direction.INPUT
+button2.pull = Pull.DOWN
+def setDice():
+    global diceType
+    print("setting dice")
+    if diceType == 3:
+        diceType = 4
+        pixels[0] = (0, 0, 255)
+        pixels[1] = (0, 0, 255)
+        pixels[2] = (0, 0, 255)
+        pixels[3] = (0, 0, 255)
+        pixels[4] = (0, 0, 0)
+        pixels[5] = (0, 0, 0)
+        pixels.show()
+        time.sleep(.5)
+        pixels[0] = (0, 0, 0)
+        pixels[1] = (0, 0, 0)
+        pixels[2] = (0, 0, 0)
+        pixels[3] = (0, 0, 0)
+        pixels[4] = (0, 0, 0)
+        pixels[5] = (0, 0, 0)
+        pixels.show()
+        time.sleep(.5)
+    elif diceType == 4:
+        diceType = 6
+        pixels[0] = (0, 0, 255)
+        pixels[1] = (0, 0, 255)
+        pixels[2] = (0, 0, 255)
+        pixels[3] = (0, 0, 255)
+        pixels[4] = (0, 0, 255)
+        pixels[5] = (0, 0, 255)
+        pixels.show()
+        time.sleep(.5)
+        pixels[0] = (0, 0, 0)
+        pixels[1] = (0, 0, 0)
+        pixels[2] = (0, 0, 0)
+        pixels[3] = (0, 0, 0)
+        pixels[4] = (0, 0, 0)
+        pixels[5] = (0, 0, 0)
+        pixels.show()
+        time.sleep(.5)
+    elif diceType == 10:
+        diceType = 3
+        pixels[0] = (0, 0, 255)
+        pixels[1] = (0, 0, 255)
+        pixels[2] = (0, 0, 255)
+        pixels[3] = (0, 0, 0)
+        pixels[4] = (0, 0, 0)
+        pixels[5] = (0, 0, 0)
+        pixels.show()
+        time.sleep(.5)
+        pixels[0] = (0, 0, 0)
+        pixels[1] = (0, 0, 0)
+        pixels[2] = (0, 0, 0)
+        pixels.show()
+        time.sleep(.5)
+    elif diceType == 6:
+        diceType = 10
+        i = 0
+        while i < 10:
+            i += 1
+            pixels[i] = (0, 0, 255)
+            pixels.show()
+            time.sleep(.5)
+            j = 0
+        while j < 10:
+            pixels[j] = (0, 0, 0)
+            pixels.show()
+            time.sleep(.5)
+def Roll():
+    pixels.fill((50, 100, 50))
+    pixels.show()
+    time.sleep(.2)
+    pixels.fill((0, 0, 0))
+    pixels.show()
+    time.sleep(.2)
+    rolled = 1
+    diceRoll = randint(1, diceType)
+    print(diceRoll)
+    print(diceType)
+    if diceRoll == 1:
+        print("rolled")
+        pixels[0] = (0, 255, 0)
+        pixels[1] = (255, 0, 0)
+        pixels[2] = (255, 0, 0)
+        if diceType == 4:    
+            pixels[3] = (255, 0, 0)
+        elif diceType == 6:
+            pixels[3] = (255, 0, 0)
+            pixels[4] = (255, 0, 0)
+            pixels[5] = (255, 0, 0)
+        pixels.show()
+        time.sleep(.5)
+    elif diceRoll == 2:
+        pixels[0] = (0, 255, 0)
+        pixels[1] = (0, 255, 0)
+        pixels[2] = (255, 0, 0)
+        if diceType == 3:
+            pixels[3] = (0, 0, 0)
+            pixels[4] = (0, 0, 0)
+            pixels[5] = (0, 0, 0)
+        elif diceType == 4:
+            pixels[3] = (255, 0, 0)    
+            pixels[4] = (0, 0, 0)
+            pixels[5] = (0, 0, 0)
+        elif diceType == 6:
+            pixels[3] = (255, 0, 0)    
+            pixels[4] = (255, 0, 0)
+            pixels[5] = (255, 0, 0)    
+        pixels.show()
+        time.sleep(.5)
+    elif diceRoll == 3:
+        pixels[0] = (0, 255, 0)
+        pixels[1] = (0, 255, 0)
+        pixels[2] = (0, 255, 0)
+        if diceType == 3:
+            pixels[3] = (0, 0, 0)
+            pixels[4] = (0, 0, 0)
+            pixels[5] = (0, 0, 0)
+        elif diceType == 4:
+            pixels[3] = (255, 0, 0)
+            pixels[4] = (0, 0, 0)
+            pixels[5] = (0, 0, 0)
+        elif diceType == 6:
+            pixels[3] = (255, 0, 0)
+            pixels[4] = (255, 0, 0)
+            pixels[5] = (255, 0, 0)    
+        pixels.show()
+        time.sleep(.5)
+    elif diceRoll == 4:
+        pixels[0] = (0, 255, 0)
+        pixels[1] = (0, 255, 0)
+        pixels[2] = (0, 255, 0)
+        pixels[3] = (0, 255, 0)
+        if diceType == 6:
+            pixels[4] = (255, 0, 0)
+            pixels[5] = (255, 0, 0)
+        pixels.show()
+        time.sleep(.5)
+    elif diceRoll == 5:
+        pixels[0] = (0, 255, 0)
+        pixels[1] = (0, 255, 0)
+        pixels[2] = (0, 255, 0)
+        pixels[3] = (0, 255, 0)
+        pixels[4] = (0, 255, 0)
+        pixels[5] = (255, 0, 0)
+        pixels.show()
+        time.sleep(.5)
+    elif diceRoll == 6:
+        pixels[0] = (0, 255, 0)
+        pixels[1] = (0, 255, 0)
+        pixels[2] = (0, 255, 0)
+        pixels[3] = (0, 255, 0)
+        pixels[4] = (0, 255, 0)
+        pixels[5] = (0, 255, 0)
+        pixels.show()
+        time.sleep(.5)
+while True:
+        # pixels[0] = (0, 0, 0)
+        # pixels[1] = (0, 0, 0)
+        # pixels[2] = (0, 0, 0)
+        # pixels[3] = (0, 0, 0)
+        # pixels[4] = (0, 0, 0)
+        # pixels[5] = (0, 0, 0)
+        # pixels.show()
+        # time.sleep(.1)
+        if button.value == 1:
+            pixels[0] = (0, 0, 0)
+            pixels[1] = (0, 0, 0)
+            pixels[2] = (0, 0, 0)
+            pixels[3] = (0, 0, 0)
+            pixels[4] = (0, 0, 0)
+            pixels[5] = (0, 0, 0)
+            pixels.show()
+            time.sleep(.1)
+            print("rolling")
+            Roll()
+        if button2.value == 1:
+            pixels[0] = (0, 0, 0)
+            pixels[1] = (0, 0, 0)
+            pixels[2] = (0, 0, 0)
+            pixels[3] = (0, 0, 0)
+            pixels[4] = (0, 0, 0)
+            pixels[5] = (0, 0, 0)
+            pixels.show()
+            time.sleep(.1)
+            global diceType
+            print("prepare dice")
+            setDice()
+            print(diceType)
